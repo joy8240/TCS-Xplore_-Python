@@ -33,6 +33,73 @@
 # Balen
 # HR
 # 12000
+
+
+
+
+
+
+
+
+
+////soultion by joy:
+    
+    class Employee:
+    def __init__(self, employee_name, designation, salary, overTimeContribution):
+        self.employee_name = employee_name
+        self.designation = designation
+        self.salary = salary
+        self.overTimeContribution = overTimeContribution
+        self.overTimeStatus = False
+        
+class Organization:
+    def __init__(self, employee_list):
+        self.employee_list = employee_list
+        
+    def check_overtime_eligibility(self, overTimeThreshold):
+        for employee in self.employee_list:
+            total_overtime_hours = 0
+            for month, hours in employee.overTimeContribution.items():
+                total_overtime_hours += hours
+            if total_overtime_hours >= overTimeThreshold:
+                employee.overTimeStatus = True
+    
+    def calculate_bonus_amount(self, rate_per_hour):
+        total_bonus_amount = 0
+        for employee in self.employee_list:
+            if employee.overTimeStatus:
+                total_overtime_hours = 0
+                for month, hours in employee.overTimeContribution.items():
+                    total_overtime_hours += hours
+                total_bonus_amount += total_overtime_hours * rate_per_hour
+        return total_bonus_amount
+    
+n = int(input().strip())
+employee_list = []
+for i in range(n):
+    employee_name = input().strip()
+    designation = input().strip()
+    salary = int(input().strip())
+    overTimeContribution = {}
+    m = int(input().strip())
+    for j in range(m):
+        month = input().strip()
+        hours = int(input().strip())
+        overTimeContribution[month.lower()] = hours
+    employee = Employee(employee_name, designation, salary, overTimeContribution)
+    employee_list.append(employee)
+    
+organization = Organization(employee_list)
+overTimeThreshold = int(input().strip())
+rate_per_hour = int(input().strip())
+
+organization.check_overtime_eligibility(overTimeThreshold)
+
+for employee in organization.employee_list:
+    print(employee.employee_name, employee.overTimeStatus)
+
+print(organization.calculate_bonus_amount(rate_per_hour))
+
 # 3
 # Jan
 # 12

@@ -25,3 +25,25 @@ Progoto.c
 Output:
 Count Of Valid String = 2
 Count of Invalid String = 2
+
+
+
+////solutions
+def is_valid(s):
+    return s.isalnum()
+
+def count_valid_strings(strings):
+    valid_count = 0
+    invalid_count = 0
+    for s in strings:
+        if is_valid(s.replace(" ", "")):
+            valid_count += 1
+        else:
+            invalid_count += 1
+    return valid_count, invalid_count
+
+n = int(input().strip())
+strings = [input().strip() for _ in range(n)]
+valid_count, invalid_count = count_valid_strings(strings)
+print("Count Of Valid String =", valid_count)
+print("Count of Invalid String =", invalid_count)
